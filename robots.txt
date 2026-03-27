@@ -1,16 +1,14 @@
-
 # robots.txt for https://mountainedgehomes.com/
+# Google Search Console: submit only sitemap URLs that return HTTP 200 (see sitemap.xml).
 
 # Allow all user agents
 User-agent: *
 Allow: /
 
-# Sitemap locations
+# Sitemap (single source; add image/video sitemaps here only after those files exist on the host)
 Sitemap: https://mountainedgehomes.com/sitemap.xml
-Sitemap: https://mountainedgehomes.com/image-sitemap.xml
-Sitemap: https://mountainedgehomes.com/video-sitemap.xml
 
-# Block sensitive directories 
+# Block sensitive directories (do not block JS/CSS needed for rendering — GSC may report blocked resources)
 Disallow: /attached_assets/
 Disallow: /.config/
 Disallow: /auto-push.js
@@ -22,8 +20,6 @@ Disallow: /temp/
 Disallow: /wp-admin/
 Disallow: /_private/
 Disallow: /*.php$
-Disallow: /*.js$
-Disallow: /*?*
 
 # Set crawl priorities for different bots
 # Google
