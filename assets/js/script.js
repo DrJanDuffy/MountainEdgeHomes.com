@@ -170,6 +170,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Desktop: blur focus inside Resources dropdown when clicking outside (fixes stuck-open menu)
+    document.addEventListener(
+        'pointerdown',
+        function (e) {
+            if (window.innerWidth <= MOBILE_NAV_MAX) return;
+            document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
+                if (dd.contains(e.target)) return;
+                var active = document.activeElement;
+                if (active && dd.contains(active)) {
+                    active.blur();
+                }
+            });
+        },
+        true
+    );
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (window.innerWidth <= MOBILE_NAV_MAX) return;
+        document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
+            var active = document.activeElement;
+            if (active && dd.contains(active)) {
+                active.blur();
+            }
+        });
+    });
+
     // Resources dropdown: mobile tap to expand
     document.querySelectorAll('.nav-dropdown-toggle').forEach(function (btn) {
         btn.addEventListener('click', function (e) {

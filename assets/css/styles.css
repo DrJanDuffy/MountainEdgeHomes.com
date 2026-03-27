@@ -467,6 +467,9 @@ header .nav-dropdown-menu {
         flex-direction: column;
     }
 
+    /* Hover: mouse users (avoids stuck-open from :focus-within after click). */
+    header .nav-dropdown:hover .nav-dropdown-menu,
+    /* Keyboard / submenu: keep open while focus is inside (Tab through links). */
     header .nav-dropdown:focus-within .nav-dropdown-menu,
     header .nav-dropdown.is-open .nav-dropdown-menu {
         display: flex;

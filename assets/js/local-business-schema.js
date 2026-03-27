@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "https://www.instagram.com/MountainEdgeHomes",
             "https://twitter.com/MountainEdgeHomes",
             "https://www.linkedin.com/company/mountain-edge-homes",
-            "https://www.youtube.com/MountainEdgeHomes",
+            "https://www.youtube.com/@DrDuffy",
             "https://pinterest.com/MountainEdgeHomes"
         ],
         "areaServed": [
