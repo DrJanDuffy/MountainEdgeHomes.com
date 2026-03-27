@@ -280,44 +280,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Check for RealScout components and refresh if needed
-    const realscoutElements = document.querySelectorAll('realscout-office-listings, realscout-simple-search, realscout-home-value');
-    if (realscoutElements.length > 0) {
-        console.log("RealScout element found");
-
-        // You can add additional logic here if needed
-        // For example, you might need to refresh the component
-        realscoutElements.forEach(element => {
-            // This is a placeholder - the actual refresh method would depend on the RealScout API
-            console.log("RealScout component refreshed");
-        });
-    }
-
-    // Initialize RealScout components
-    setTimeout(() => {
-        // Handle office listings component
-        const realscoutListingsElement = document.querySelector('realscout-office-listings');
-        if (realscoutListingsElement) {
-            console.log('RealScout listings element found, initializing...');
-            
-            // Make sure component is properly styled
-            realscoutListingsElement.style.setProperty('--rs-listing-divider-color', '#4a90e2');
-            realscoutListingsElement.style.width = '100%';
-            
-            // Force refresh the component
-            realscoutListingsElement.setAttribute('refresh', 'true');
-            console.log('RealScout listings component refreshed');
-        }
-
-        // Handle home value component
-        const realscoutHomeValueElement = document.querySelector('realscout-home-value');
-        if (realscoutHomeValueElement) {
-            console.log('RealScout home value element found, initializing...');
-            // Complete initialization if needed
-            realscoutHomeValueElement.setAttribute('refresh', 'true');
-            console.log('RealScout home value component refreshed');
-        }
-    }, 1000);
+    // RealScout: CSS variables only — embed script owns component lifecycle.
+    document.querySelectorAll('realscout-office-listings').forEach((el) => {
+        el.style.setProperty('--rs-listing-divider-color', '#4a90e2');
+        el.style.width = '100%';
+    });
 
     // Advanced search toggle
     const searchToggle = document.getElementById('search-toggle');
@@ -390,8 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 answer.classList.add('active');
             }
 
-            // Track FAQ interaction for analytics
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag === 'function') {
                 gtag('event', 'faq_interaction', {
                     'faq_question': question.textContent.trim()
                 });

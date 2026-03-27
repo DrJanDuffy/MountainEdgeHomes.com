@@ -1,56 +1,35 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to check if RealScout is loaded properly
-    function isRealScoutLoaded() {
-        return typeof window.RealScout !== 'undefined';
-    }
-
-    // Check if RealScout is loaded after a timeout
-    setTimeout(function() {
-        if (!isRealScoutLoaded()) {
-            console.log('RealScout not loaded. Falling back to local property search.');
-            const localSearch = setupLocalPropertySearch();
-            localSearch.init();
-        } else {
-            console.log('RealScout loaded successfully.');
-        }
-    }, 3000); // Wait 3 seconds to check
-
-    // Fallback property search functionality
+/**
+ * Legacy local property-search form helpers only.
+ * RealScout web components load from <head>; do not auto-hide or re-mount them here.
+ * (Closed shadow roots make shadowRoot checks unreliable; async paint can make height < 50px briefly.)
+ */
+document.addEventListener('DOMContentLoaded', function () {
     function setupLocalPropertySearch() {
-        // Return an object with init method
         return {
-            init: function() {
-                // Initialize local property search
+            init: function () {
                 const searchForm = document.getElementById('property-search-form');
                 if (searchForm) {
                     searchForm.addEventListener('submit', handleLocalSearch);
                 }
-            }
+            },
         };
     }
 
-    // Handle local search function
     function handleLocalSearch(e) {
         e.preventDefault();
-        console.log('Local search executed');
 
-        // Get search form values
-        const location = document.getElementById('search-location').value;
-        const propertyType = document.getElementById('search-property-type').value;
-        const priceRange = document.getElementById('search-price-range').value;
+        const location = document.getElementById('search-location');
+        const propertyType = document.getElementById('search-property-type');
+        const priceRange = document.getElementById('search-price-range');
+        if (!location || !propertyType || !priceRange) return;
 
-        // Log search parameters
-        console.log(`Searching for ${propertyType} in ${location} with price range ${priceRange}`);
-
-        // Display search results (this would fetch from a database in production)
         showLocalSearchResults({
-            location: location,
-            propertyType: propertyType,
-            priceRange: priceRange
+            location: location.value,
+            propertyType: propertyType.value,
+            priceRange: priceRange.value,
         });
     }
 
-    // Function to display search results
     function showLocalSearchResults(params) {
         const resultsContainer = document.getElementById('property-results');
         if (!resultsContainer) return;
@@ -86,158 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
     }
+
+    if (document.getElementById('property-search-form')) {
+        setupLocalPropertySearch().init();
+    }
 });
-
-// RealScout Fallback Script
-//Check if RealScout has loaded after 5 seconds (increased from 3)
-setTimeout(function() {
-    checkRealScoutStatus();
-}, 5000);
-
-// Load RealScout script with error handling
-loadRealScoutScript();
-
-
-function checkRealScoutStatus() {
-    const realscoutElements = document.querySelectorAll('realscout-office-listings, realscout-simple-search, realscout-advanced-search, realscout-home-value');
-    let realscoutFailed = false;
-
-    realscoutElements.forEach(element => {
-        // Check if the element exists but isn't rendering properly
-        if (!element.shadowRoot || element.offsetHeight < 50) {
-            console.log('RealScout element not rendering properly:', element);
-            realscoutFailed = true;
-            element.style.display = 'none';
-        }
-    });
-
-    if (realscoutFailed || realscoutElements.length === 0) {
-        console.log('RealScout not loading properly, showing fallback properties');
-        showFallbackProperties();
-    }
-}
-
-function loadRealScoutScript() {
-    if (document.querySelector('script[src*="realscout"]')) {
-        console.log('RealScout script already loaded, attempting to refresh components');
-        refreshRealScoutComponents();
-        return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://em.realscout.com/widgets/realscout-web-components.umd.js';
-    script.type = 'module';
-    
-    script.onload = function() {
-        console.log('RealScout script loaded successfully');
-        refreshRealScoutComponents();
-    };
-
-    script.onerror = function() {
-        console.error('Failed to load RealScout script');
-        showFallbackProperties();
-    };
-
-    document.head.appendChild(script);
-}
-
-function refreshRealScoutComponents() {
-    // Find all RealScout elements and refresh them
-    const realscoutElements = document.querySelectorAll('realscout-office-listings, realscout-simple-search, realscout-advanced-search, realscout-home-value');
-
-    realscoutElements.forEach(element => {
-        try {
-            // Force refresh by removing and re-adding the element
-            const parent = element.parentNode;
-            if (parent) {
-                const clone = element.cloneNode(true);
-                // Add refresh attribute if it exists in the API
-                clone.setAttribute('refresh', 'true');
-                parent.removeChild(element);
-                setTimeout(() => {
-                    parent.appendChild(clone);
-                    console.log('RealScout component refreshed');
-                }, 300);
-            }
-        } catch (error) {
-            console.error('Error refreshing RealScout component:', error);
-        }
-    });
-
-    // Check status after refresh
-    setTimeout(checkRealScoutStatus, 3000);
-}
-
-function showFallbackProperties() {
-    // Set global flag to prevent duplicate calls
-    window.fallbackShown = true;
-    
-    // First, remove ALL existing fallback messages from the entire document
-    const existingMessages = document.querySelectorAll('.fallback-message');
-    existingMessages.forEach(msg => msg.remove());
-    
-    // Hide all RealScout elements
-    const realscoutElements = document.querySelectorAll('realscout-office-listings, realscout-simple-search, realscout-advanced-search, realscout-home-value');
-    realscoutElements.forEach(element => {
-        element.style.display = 'none';
-    });
-
-    // Show fallback properties container
-    const fallbackProperties = document.getElementById('fallback-properties');
-    if (fallbackProperties) {
-        fallbackProperties.style.display = 'block';
-
-        // Create a single fallback message at the top of the fallback properties container
-        const fallbackMessage = document.createElement('div');
-        fallbackMessage.className = 'fallback-message';
-        fallbackMessage.id = 'primary-fallback-message'; // Add an ID to easily reference this
-        fallbackMessage.innerHTML = '<p><i class="fas fa-info-circle"></i> Showing local property data because the live RealScout search is currently unavailable.</p>';
-        
-        // Insert the message at the beginning of the fallback properties container
-        fallbackProperties.insertBefore(fallbackMessage, fallbackProperties.firstChild);
-
-        // Load properties from our local data
-        const searchResultProperties = document.getElementById('search-result-properties');
-        if (searchResultProperties && typeof properties !== 'undefined' && typeof generatePropertyCard !== 'undefined') {
-            let propertiesHTML = '';
-
-            // If we have search params, apply filtering
-            const urlParams = new URLSearchParams(window.location.search);
-            const selectedNeighborhood = urlParams.get('neighborhood') || '';
-            const minPrice = urlParams.get('min-price') || 0;
-            const maxPrice = urlParams.get('max-price') || 10000000;
-            const minBeds = urlParams.get('min-beds') || 0;
-            const minBaths = urlParams.get('min-baths') || 0;
-
-            // Filter properties based on search criteria
-            const filteredProperties = properties.filter(property => {
-                // Parse price (remove $ and commas)
-                const price = parseInt(property.price.replace(/[$,]/g, ''));
-
-                // Get number values
-                const beds = property.bedrooms;
-                const baths = property.bathrooms;
-
-                // Apply filters
-                return (!selectedNeighborhood || property.neighborhood === selectedNeighborhood) && 
-                    price >= minPrice && 
-                    price <= maxPrice && 
-                    beds >= minBeds && 
-                    baths >= minBaths;
-            });
-
-            if (filteredProperties.length > 0) {
-                filteredProperties.forEach(property => {
-                    propertiesHTML += generatePropertyCard(property);
-                });
-            } else {
-                propertiesHTML = '<div class="no-results">No properties found matching your criteria. Please try adjusting your search.</div>';
-            }
-
-            searchResultProperties.innerHTML = propertiesHTML;
-        }
-    }
-    
-    // Log that fallback message has been displayed once
-    console.log('Fallback message displayed. Global flag set to prevent duplicates.');
-}

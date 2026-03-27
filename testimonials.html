@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="assets/css/testimonials.css">
     <link rel="stylesheet" href="assets/css/global-map.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      .logo .site-name { font-size: 1.8rem; color: var(--primary-color); margin: 0; font-weight: 700; letter-spacing: -0.5px; text-decoration: none; display: inline-block; }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -92,14 +95,6 @@
       }
     ]
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "bestRating": "5",
-    "worstRating": "1",
-    "ratingCount": "87",
-    "reviewCount": "87"
-  },
   "speakable": {
     "@type": "SpeakableSpecification",
     "cssSelector": [".testimonials-hero h1", ".testimonials-section p"]
@@ -110,7 +105,7 @@
     <header>
         <div class="container">
             <div class="logo">
-                <h1>Mountain Edge Homes</h1>
+                <a href="index.html" class="site-name">Mountain Edge Homes</a>
             </div>
             <nav>
                 <button class="menu-toggle" aria-label="Toggle navigation menu">
@@ -118,12 +113,19 @@
                 </button>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="homes-for-sale.html">Properties</a></li>
-                    <li><a href="community.html">About</a></li>
+                    <li><a href="buyers.html">Buyers</a></li>
+                    <li><a href="homes-for-sale.html">Homes for sale</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="neighborhoods.html">Neighborhoods</a></li>
                     <li><a href="index.html#services">Services</a></li>
                     <li><a href="our-team.html">Our Team</a></li>
+                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="testimonials.html" class="active">Testimonials</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="home-value.html">Home Value</a></li>
+                    <li><a href="resident-portal.html" class="btn-portal"><i class="fas fa-user-lock"></i> Resident Portal</a></li>
                 </ul>
             </nav>
         </div>
@@ -240,15 +242,14 @@
             <h2 class="section-title">Our Google Reviews</h2>
             <div class="reviews-intro">
                 <div class="google-rating">
-                    <div class="rating-number">4.9</div>
-                    <div class="rating-stars">
+                    <p class="rating-count" style="font-size:1.1rem;margin-bottom:0.75rem;">See current ratings and reviews on Google Business Profile.</p>
+                    <div class="rating-stars" aria-hidden="true">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <div class="rating-count">Based on 87 reviews</div>
                     <a href="https://g.page/r/Mountains-Edge-Homes/review" class="btn btn-review" target="_blank" rel="noopener">
                         <i class="fab fa-google"></i> Write a Review
                     </a>
@@ -496,11 +497,11 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Mountain Edge Homes. All rights reserved.</p>
+                <p>&copy; 2026 Mountain Edge Homes. All rights reserved.</p>
                 <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Sitemap</a>
+                    <a href="mailto:DrJanSells@MountainEdgeHomes.com?subject=Privacy%20inquiry">Privacy</a>
+                    <a href="index.html#contact">Contact &amp; terms</a>
+                    <a href="sitemap.html">Sitemap</a>
                 </div>
             </div>
         </div>
