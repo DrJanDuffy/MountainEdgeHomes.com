@@ -4,10 +4,16 @@
  * Creates basic WebPage schema for better indexing
  */
 document.addEventListener('DOMContentLoaded', function() {
+    const path = window.location.pathname || '/';
+    if (path === '/' || path === '/index.html') {
+        return;
+    }
     // Get page metadata
     const pageTitle = document.title;
     const pageDescription = document.querySelector('meta[name="description"]')?.content || '';
-    const pageUrl = window.location.href;
+    const canonicalOrigin = 'https://mountainedgehomes.com';
+    const normalizedPath = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+    const pageUrl = canonicalOrigin + (normalizedPath === '/' ? '' : normalizedPath) + (window.location.search || '');
     const lastModified = document.querySelector('meta[name="last-modified"]')?.content || new Date().toISOString().split('T')[0];
     
     // Create WebPage schema
@@ -17,12 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "name": pageTitle,
         "description": pageDescription,
         "url": pageUrl,
+        "publisher": { "@id": "https://mountainedgehomes.com/#organization" },
         "lastReviewed": lastModified,
-        "reviewedBy": {
-            "@type": "Organization",
-            "name": "Mountain Edge Homes",
-            "url": "https://mountainedgehomes.com/"
-        },
+        "reviewedBy": { "@id": "https://mountainedgehomes.com/#organization" },
         "mainContentOfPage": {
             "@type": "WebPageElement",
             "cssSelector": ".hero-content, main, .properties-section, .about-section"

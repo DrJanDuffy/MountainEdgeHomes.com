@@ -6,6 +6,22 @@
     margin-bottom: 30px;
 }
 
+.property-search-section .property-search-subheading {
+    font-size: 1.35rem;
+    color: #0A2540;
+    margin: 1.75rem 0 0.5rem;
+    font-weight: 600;
+}
+
+.property-search-section .property-search-subheading + p {
+    margin-bottom: 1rem;
+    max-width: 42rem;
+}
+
+.property-search-section .realscout-container + .property-search-subheading {
+    margin-top: 2.25rem;
+}
+
 .search-container {
     max-width: 1200px;
     margin: 0 auto;

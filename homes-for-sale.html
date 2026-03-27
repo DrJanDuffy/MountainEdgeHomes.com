@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="assets/css/form-enhancements.css">
     <link rel="stylesheet" href="assets/css/calendly-overrides.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js" type="module" crossorigin="anonymous"></script>
+    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js" type="module"></script>
     <style>
       realscout-office-listings {
         --rs-listing-divider-color: #4a90e2;
@@ -38,11 +38,21 @@
         --rs-primary-color: #0A2540;
         --rs-accent-color: #3A8DDE;
       }
+      realscout-simple-search {
+        --rs-ss-font-primary-color: #000000;
+        --rs-ss-searchbar-border-color: #8b572a;
+        --rs-ss-box-shadow: 0 10px 15px -3px #0000001a;
+        --rs-ss-widget-width: 500px !important;
+      }
+      realscout-advanced-search {
+        --rs-as-button-text-color: #ffffff;
+        --rs-as-background-color: #ffffff;
+        --rs-as-button-color: #4a90e2;
+        --rs-as-widget-width: 500px !important;
+      }
       .logo .site-name { font-size: 1.8rem; color: var(--primary-color); margin: 0; font-weight: 700; letter-spacing: -0.5px; text-decoration: none; display: inline-block; }
       .mls-disclaimer { font-size: 0.85rem; color: #555; margin-top: 1rem; line-height: 1.55; max-width: 900px; margin-left: auto; margin-right: auto; text-align: center; }
     </style>
-    <script src="https://cdn.percy.ai/js/hvs-components.min.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.percy.ai/css/hvs-components.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
 <script type="application/ld+json">
@@ -52,6 +62,7 @@
   "name": "Homes for Sale — Mountain's Edge Las Vegas 89178",
   "description": "Search and browse homes for sale in Mountain's Edge, Las Vegas 89178.",
   "url": "https://mountainedgehomes.com/homes-for-sale.html",
+  "publisher": { "@id": "https://mountainedgehomes.com/#organization" },
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
@@ -65,6 +76,7 @@
 {
   "@context": "https://schema.org",
   "@type": "RealEstateAgent",
+  "@id": "https://mountainedgehomes.com/#organization",
   "name": "Mountain Edge Homes",
   "url": "https://mountainedgehomes.com/",
   "telephone": "(702) 919-5002",
@@ -155,96 +167,19 @@
 
     <section id="property-search" class="property-search-section">
         <div class="container">
-            <div class="search-container">
-                <div class="search-header">
-                    <h2>How do I search Mountain's Edge homes for sale?</h2>
-                    <button class="search-toggle" id="search-toggle" type="button">
-                        Advanced Search <i class="fas fa-chevron-down"></i>
-                    </button>
-                </div>
+            <h2>How do I search Mountain's Edge homes for sale?</h2>
+            <p class="section-subtitle">Start with a quick address or area search, or open advanced filters for price, beds, and baths. Both tools cover southwest Las Vegas and the 89178 zip—think Mountain's Edge, villages like Aspire, Cascade, Collina, Mesa Valla, Montelano, Quintessa, San Gabriel, or Sierra Madre, plus streets off Blue Diamond Road.</p>
 
-                <form class="search-form">
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <div class="hvs-autocomplete-container">
-                            <hvs-autocomplete id="location" placeholder="Enter address, neighborhood, or city" data-search-type="tiered"></hvs-autocomplete>
-                        </div>
-                    </div>
+            <h3 class="property-search-subheading">Quick search</h3>
+            <p>Type a street address, <strong>Mountain's Edge</strong>, <strong>Las Vegas, NV 89178</strong>, or a neighborhood name. The bar matches MLS listings tied to this area so you can jump straight to homes near parks, schools, and the villages you care about.</p>
+            <div class="realscout-container" style="max-width: 520px; margin-left: auto; margin-right: auto;">
+                <realscout-simple-search agent-encoded-id="QWdlbnQtMjI1MDUw"></realscout-simple-search>
+            </div>
 
-                    <div class="form-group">
-                        <label for="property-type">Property Type</label>
-                        <select id="property-type">
-                            <option value="">Any Type</option>
-                            <option value="single-family">Single Family</option>
-                            <option value="condo">Condo / Townhome</option>
-                            <option value="multi-family">Multi-Family</option>
-                            <option value="land">Land / Lot</option>
-                            <option value="luxury">Luxury</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price-range">Price Range</label>
-                        <select id="price-range">
-                            <option value="">Any Price</option>
-                            <option value="0-400000">Under $400,000</option>
-                            <option value="400000-600000">$400,000 - $600,000</option>
-                            <option value="600000-800000">$600,000 - $800,000</option>
-                            <option value="800000-1000000">$800,000 - $1,000,000</option>
-                            <option value="1000000-1500000">$1,000,000 - $1,500,000</option>
-                            <option value="1500000-10000000">$1,500,000+</option>
-                        </select>
-                    </div>
-
-                    <div class="advanced-fields">
-                        <div class="form-group">
-                            <label for="min-beds">Min Bedrooms</label>
-                            <select id="min-beds">
-                                <option value="">Any</option>
-                                <option value="1">1+</option>
-                                <option value="2">2+</option>
-                                <option value="3">3+</option>
-                                <option value="4">4+</option>
-                                <option value="5">5+</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="min-baths">Min Bathrooms</label>
-                            <select id="min-baths">
-                                <option value="">Any</option>
-                                <option value="1">1+</option>
-                                <option value="2">2+</option>
-                                <option value="3">3+</option>
-                                <option value="4">4+</option>
-                                <option value="5">5+</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="square-feet">Square Feet</label>
-                            <select id="square-feet">
-                                <option value="">Any</option>
-                                <option value="1000-1499">1,000 - 1,499 sq ft</option>
-                                <option value="1500-1999">1,500 - 1,999 sq ft</option>
-                                <option value="2000-2999">2,000 - 2,999 sq ft</option>
-                                <option value="3000-3999">3,000 - 3,999 sq ft</option>
-                                <option value="4000-9999">4,000+ sq ft</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="features">Features</label>
-                            <select id="features">
-                                <option value="">Any</option>
-                                <option value="pool">Pool</option>
-                                <option value="view">Mountain View</option>
-                                <option value="garage">3+ Car Garage</option>
-                                <option value="gated">Gated Community</option>
-                                <option value="new">New Construction</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button type="submit"><i class="fas fa-search"></i> Search Properties</button>
-                </form>
+            <h3 class="property-search-subheading">Advanced search</h3>
+            <p>Use the options below to narrow by budget, bedrooms, bathrooms, and more. Results open on RealScout where you can save favorites and request showings.</p>
+            <div class="realscout-container" style="max-width: 520px; margin-left: auto; margin-right: auto;">
+                <realscout-advanced-search agent-encoded-id="QWdlbnQtMjI1MDUw"></realscout-advanced-search>
             </div>
         </div>
     </section>
@@ -434,7 +369,6 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/image-optimization.js"></script>
     <script src="assets/js/properties.js" defer></script>
-    <script src="assets/js/property-search.js" defer></script>
     <script src="assets/js/form-enhancements.js" defer></script>
 </body>
 </html>

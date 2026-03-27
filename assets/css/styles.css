@@ -366,7 +366,8 @@ header .site-nav {
     justify-content: center;
 }
 
-header .site-nav ul {
+/* Only the primary nav row — do not target .nav-dropdown-menu or it inherits flex and can stay visible */
+header .site-nav > ul {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
@@ -445,6 +446,7 @@ header .nav-dropdown-menu {
     list-style: none;
     margin: 0;
     padding: 0.5rem 0;
+    display: none;
 }
 
 @media (min-width: 992px) {
@@ -467,10 +469,7 @@ header .nav-dropdown-menu {
         flex-direction: column;
     }
 
-    /* Hover: mouse users (avoids stuck-open from :focus-within after click). */
-    header .nav-dropdown:hover .nav-dropdown-menu,
-    /* Keyboard / submenu: keep open while focus is inside (Tab through links). */
-    header .nav-dropdown:focus-within .nav-dropdown-menu,
+    /* Open only via .is-open (JS toggle). Avoids :focus-within / :hover traps on every page. */
     header .nav-dropdown.is-open .nav-dropdown-menu {
         display: flex;
     }

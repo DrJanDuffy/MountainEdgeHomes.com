@@ -170,17 +170,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Desktop: blur focus inside Resources dropdown when clicking outside (fixes stuck-open menu)
+    function closeAllNavDropdowns() {
+        document.querySelectorAll('.nav-dropdown.is-open').forEach(function (dd) {
+            dd.classList.remove('is-open');
+            var b = dd.querySelector('.nav-dropdown-toggle');
+            if (b) b.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    // Close Resources dropdown when clicking outside (desktop + mobile)
     document.addEventListener(
         'pointerdown',
         function (e) {
-            if (window.innerWidth <= MOBILE_NAV_MAX) return;
             document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
                 if (dd.contains(e.target)) return;
-                var active = document.activeElement;
-                if (active && dd.contains(active)) {
-                    active.blur();
-                }
+                dd.classList.remove('is-open');
+                var btn = dd.querySelector('.nav-dropdown-toggle');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
             });
         },
         true
@@ -188,27 +194,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
-        if (window.innerWidth <= MOBILE_NAV_MAX) return;
-        document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
-            var active = document.activeElement;
-            if (active && dd.contains(active)) {
-                active.blur();
-            }
-        });
+        closeAllNavDropdowns();
     });
 
-    // Resources dropdown: mobile tap to expand
+    closeAllNavDropdowns();
+
+    // Resources dropdown: click/tap toggles .is-open (desktop + mobile disclosure pattern)
     document.querySelectorAll('.nav-dropdown-toggle').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-            if (window.innerWidth > MOBILE_NAV_MAX) {
-                return;
-            }
             e.preventDefault();
             e.stopPropagation();
             var li = btn.closest('.nav-dropdown');
             if (!li) return;
             var expanded = !li.classList.contains('is-open');
-            document.querySelectorAll('.nav-dropdown.is-open').forEach(function (other) {
+            document.querySelectorAll('.nav-dropdown').forEach(function (other) {
                 if (other !== li) {
                     other.classList.remove('is-open');
                     var ob = other.querySelector('.nav-dropdown-toggle');

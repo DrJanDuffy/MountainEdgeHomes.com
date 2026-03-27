@@ -121,7 +121,7 @@ function renderPropertyDetails(property) {
                         <div class="feature"><i class="fas fa-check"></i> Home Theater</div>
                         <div class="feature"><i class="fas fa-check"></i> Wine Cellar</div>
                         <div class="feature"><i class="fas fa-check"></i> Outdoor Hot Tub</div>
-                        <div class="feature"><i class="fas fa-check"></i> Ski Storage</div>
+                        <div class="feature"><i class="fas fa-check"></i> Covered Patio</div>
                         <div class="feature"><i class="fas fa-check"></i> 2-Car Garage</div>
                     </div>
                 </div>
@@ -129,16 +129,16 @@ function renderPropertyDetails(property) {
                 <div class="detail-section">
                     <h2>Location</h2>
                     <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d98387.48525512927!2d-106.87808853332872!3d39.19118559267762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876a7060c630dbdb%3A0xb8b1cb9a5ee12710!2sAspen%2C%20CO%2081611!5e0!3m2!1sen!2sus!4v1624541888565!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26376.02482596!2d-115.2552!3d36.0051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8c67a0333ff33%3A0x2c7ffe4df688c898!2sMountain's%20Edge%2C%20Las%20Vegas%2C%20NV!5e0!3m2!1sen!2sus!4v1620581000000!5m2!1sen!2sus" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" title="Mountain's Edge, Las Vegas map"></iframe>
                     </div>
                     
                     <div class="location-details">
-                        <p>This property is ideally situated just minutes from downtown, offering the perfect balance of privacy and convenience. Nearby amenities include:</p>
+                        <p>Mountain's Edge is in southwest Las Vegas (89178), with parks, schools, and retail nearby. Typical drive times vary by traffic:</p>
                         <ul>
-                            <li>10 minutes to downtown shops and restaurants</li>
-                            <li>5 minutes to ski slopes</li>
-                            <li>15 minutes to golf course</li>
-                            <li>30 minutes to regional airport</li>
+                            <li>Easy access to Blue Diamond Road and I-215</li>
+                            <li>Parks and trails within the community</li>
+                            <li>Shopping and dining along Blue Diamond corridor</li>
+                            <li>Las Vegas Strip and airport within a reasonable drive</li>
                         </ul>
                     </div>
                 </div>
@@ -152,19 +152,19 @@ function renderPropertyDetails(property) {
                             <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Real Estate Agent">
                         </div>
                         <div class="agent-details">
-                            <h4>Sarah Johnson</h4>
-                            <p>Senior Luxury Specialist</p>
+                            <h4>Dr. Jan Duffy</h4>
+                            <p>Mountain Edge Homes · Berkshire Hathaway HomeServices Nevada Properties</p>
                         </div>
                     </div>
                     
                     <div class="agent-contacts">
                         <div class="agent-contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>(970) 555-1234</span>
+                            <span><a href="tel:+17029195002">(702) 919-5002</a></span>
                         </div>
                         <div class="agent-contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>jan.duffy@mountainedgehomes.com</span>
+                            <span><a href="mailto:DrJanSells@MountainEdgeHomes.com">DrJanSells@MountainEdgeHomes.com</a></span>
                         </div>
                     </div>
                     
