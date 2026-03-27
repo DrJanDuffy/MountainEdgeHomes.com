@@ -193,4 +193,18 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://mountainedgehomes.com/faq.html"/>
   </url>
+  <url>
+    <loc>https://mountainedgehomes.com/privacy.html</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mountainedgehomes.com/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://mountainedgehomes.com/terms.html</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mountainedgehomes.com/terms.html"/>
+  </url>
 </urlset>

@@ -95,6 +95,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font: inherit;
     font-weight: 600;
     text-align: center;
     text-decoration: none;

@@ -214,6 +214,9 @@
     </style>
 </head>
 <body>
+    <div class="portal-demo-banner" role="status" style="background:#fff8e6;border-bottom:1px solid #e6d9a8;padding:12px;text-align:center;font-size:0.95rem;">
+        <strong>Demo layout:</strong> Official HOA portals are hosted by your property manager. This page previews structure only. Real estate: <a href="tel:+17029195002">(702) 919-5002</a> · <a href="index.html#contact">Contact</a>.
+    </div>
     <!-- Header -->
     <header>
         <div class="container">
@@ -268,8 +271,8 @@
                     </button>
                 </div>
                 <div class="form-links">
-                    <a href="#" id="forgot-password">Forgot Password?</a>
-                    <a href="#" id="register-account">Register Account</a>
+                    <a href="mailto:DrJanSells@MountainEdgeHomes.com?subject=Resident%20portal%20password%20help" id="forgot-password">Forgot Password?</a>
+                    <a href="mailto:DrJanSells@MountainEdgeHomes.com?subject=Resident%20portal%20access" id="register-account">Register Account</a>
                 </div>
                 <div class="form-message" id="login-message" style="display: none;"></div>
             </form>
@@ -289,12 +292,12 @@
                     </div>
                     <div class="portal-card-content">
                         <ul>
-                            <li><a href="#"><i class="fas fa-file-pdf"></i> HOA Rules & Regulations</a></li>
-                            <li><a href="#"><i class="fas fa-file-pdf"></i> Architectural Guidelines</a></li>
-                            <li><a href="#"><i class="fas fa-file-pdf"></i> Community Bylaws</a></li>
-                            <li><a href="#"><i class="fas fa-file-pdf"></i> CC&Rs</a></li>
-                            <li><a href="#"><i class="fas fa-file-pdf"></i> Board Meeting Minutes</a></li>
-                            <li><a href="#"><i class="fas fa-file-pdf"></i> Financial Reports</a></li>
+                            <li><a href="#hoa-documents"><i class="fas fa-file-pdf"></i> HOA Rules & Regulations</a></li>
+                            <li><a href="#hoa-documents"><i class="fas fa-file-pdf"></i> Architectural Guidelines</a></li>
+                            <li><a href="#hoa-documents"><i class="fas fa-file-pdf"></i> Community Bylaws</a></li>
+                            <li><a href="#hoa-documents"><i class="fas fa-file-pdf"></i> CC&Rs</a></li>
+                            <li><a href="#hoa-documents"><i class="fas fa-file-pdf"></i> Board Meeting Minutes</a></li>
+                            <li><a href="#hoa-documents"><i class="fas fa-file-pdf"></i> Financial Reports</a></li>
                         </ul>
                     </div>
                 </div>
@@ -306,9 +309,9 @@
                     <div class="portal-card-content">
                         <ul>
                             <li><a href="#maintenance-form"><i class="fas fa-plus-circle"></i> Submit New Request</a></li>
-                            <li><a href="#"><i class="fas fa-clipboard-list"></i> View Request History</a></li>
-                            <li><a href="#"><i class="fas fa-question-circle"></i> Maintenance FAQ</a></li>
-                            <li><a href="#"><i class="fas fa-phone"></i> Emergency Contacts</a></li>
+                            <li><a href="#maintenance-form"><i class="fas fa-clipboard-list"></i> View Request History</a></li>
+                            <li><a href="faq.html"><i class="fas fa-question-circle"></i> Maintenance FAQ</a></li>
+                            <li><a href="tel:+17029195002"><i class="fas fa-phone"></i> Emergency Contacts</a></li>
                         </ul>
                     </div>
                 </div>
@@ -320,24 +323,24 @@
                     <div class="portal-card-content">
                         <ul>
                             <li><a href="#community-calendar"><i class="fas fa-calendar-day"></i> View Calendar</a></li>
-                            <li><a href="#"><i class="fas fa-star"></i> Upcoming Events</a></li>
-                            <li><a href="#"><i class="fas fa-volleyball-ball"></i> Community Activities</a></li>
-                            <li><a href="#"><i class="fas fa-users"></i> Committee Meetings</a></li>
+                            <li><a href="#community-calendar"><i class="fas fa-star"></i> Upcoming Events</a></li>
+                            <li><a href="community.html"><i class="fas fa-volleyball-ball"></i> Community Activities</a></li>
+                            <li><a href="schedule.html"><i class="fas fa-users"></i> Committee Meetings</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="portal-card">
+                <div id="portal-amenities" class="portal-card">
                     <div class="portal-card-header">
                         <i class="fas fa-home"></i> Amenity Reservations
                     </div>
                     <div class="portal-card-content">
                         <ul>
-                            <li><a href="#"><i class="fas fa-swimming-pool"></i> Pool Area</a></li>
-                            <li><a href="#"><i class="fas fa-utensils"></i> BBQ Area</a></li>
-                            <li><a href="#"><i class="fas fa-building"></i> Community Center</a></li>
-                            <li><a href="#"><i class="fas fa-basketball-ball"></i> Sport Courts</a></li>
-                            <li><a href="#"><i class="fas fa-calendar-check"></i> View My Reservations</a></li>
+                            <li><a href="#portal-amenities"><i class="fas fa-swimming-pool"></i> Pool Area</a></li>
+                            <li><a href="#portal-amenities"><i class="fas fa-utensils"></i> BBQ Area</a></li>
+                            <li><a href="#portal-amenities"><i class="fas fa-building"></i> Community Center</a></li>
+                            <li><a href="#portal-amenities"><i class="fas fa-basketball-ball"></i> Sport Courts</a></li>
+                            <li><a href="#portal-amenities"><i class="fas fa-calendar-check"></i> View My Reservations</a></li>
                         </ul>
                     </div>
                 </div>
@@ -542,6 +545,13 @@
         </div>
     </section>
 
+    <section id="hoa-documents" class="portal-container" style="padding-bottom: 40px;">
+        <div style="max-width: 720px; margin: 0 auto; padding: 24px; background: #f5f7fa; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+            <h2 style="margin-top: 0; color: var(--primary-color);">HOA documents &amp; official records</h2>
+            <p style="margin: 0; line-height: 1.6; color: #444;">CC&amp;Rs, bylaws, financials, and meeting minutes are issued by your association or licensed management company. The document links above are placeholders for a live HOA integration. For Mountain’s Edge <strong>real estate</strong> questions, <a href="index.html#contact">contact us</a> or call <a href="tel:+17029195002">(702) 919-5002</a>.</p>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -577,11 +587,11 @@
                     <div class="link-column">
                         <h4>Resident Resources</h4>
                         <ul>
-                            <li><a href="#">HOA Documents</a></li>
-                            <li><a href="#">Maintenance Requests</a></li>
-                            <li><a href="#">Community Events</a></li>
-                            <li><a href="#">Amenity Reservations</a></li>
-                            <li><a href="#">Community Newsletter</a></li>
+                            <li><a href="resident-portal.html#hoa-documents">HOA Documents</a></li>
+                            <li><a href="resident-portal.html#maintenance-form">Maintenance Requests</a></li>
+                            <li><a href="resident-portal.html#community-calendar">Community Events</a></li>
+                            <li><a href="resident-portal.html#portal-amenities">Amenity Reservations</a></li>
+                            <li><a href="blog.html">Community Newsletter</a></li>
                         </ul>
                     </div>
                     <div class="link-column">
@@ -600,10 +610,11 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Mountain Edge Homes. All rights reserved.</p>
+                <p>&copy; 2026 Mountain Edge Homes. All rights reserved.</p>
                 <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="index.html#contact">Contact</a>
                     <a href="sitemap.html">Sitemap</a>
                 </div>
             </div>
