@@ -134,3 +134,27 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# Local IDE / tooling (keep repo portable)
+.cursor/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Vercel CLI
+.vercel/
+
+# Python (scripts/)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Scratch / pasted chat exports (regenerate locally if needed)
+attached_assets/

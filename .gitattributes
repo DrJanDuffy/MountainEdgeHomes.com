@@ -1,0 +1,26 @@
+# Normalize line endings on checkout (cross-platform)
+* text=auto
+
+# Web & source — LF for consistent deploys (Vercel/Linux)
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.svg text eol=lf
+*.xml text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary assets
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
