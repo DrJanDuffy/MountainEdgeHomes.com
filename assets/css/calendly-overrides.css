@@ -1,0 +1,21 @@
+/* Calendly inline container: prevent collapse on narrow viewports */
+.calendly-inline-host {
+  min-width: 320px;
+  width: 100%;
+  min-height: 650px;
+}
+
+.calendly-inline-widget {
+  min-height: 650px !important;
+}
+
+@media (max-width: 480px) {
+  .calendly-inline-host .calendly-inline-widget {
+    min-height: 600px !important;
+  }
+}
+
+/* Optional: keep badge from overlapping critical CTAs (default is bottom-right) */
+.calendly-badge-widget {
+  z-index: 9998;
+}

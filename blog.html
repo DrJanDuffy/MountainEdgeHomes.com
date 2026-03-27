@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/blog.css">
     <link rel="stylesheet" href="assets/css/global-map.css">
+    <link rel="stylesheet" href="assets/css/calendly-overrides.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -46,7 +47,7 @@
 </script>
 
 </head>
-<body>
+<body data-calendly-badge="true">
     <!-- Header -->
     <header>
         <div class="container">
@@ -226,12 +227,9 @@
                 </div>
                 
                 <div class="sidebar-section subscribe-box">
-                    <h3>Subscribe to Our Newsletter</h3>
-                    <p>Get the latest Mountain's Edge real estate updates delivered to your inbox.</p>
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Your Email Address" required>
-                        <button type="submit" class="btn btn-sm">Subscribe</button>
-                    </form>
+                    <h3>Talk with Dr. Jan Duffy</h3>
+                    <p>Schedule a call or meeting—no form required. Prefer email? <a href="mailto:DrJanSells@MountainEdgeHomes.com">DrJanSells@MountainEdgeHomes.com</a></p>
+                    <p><a href="https://calendly.com/drjanduffy/appointment?hide_event_type_details=1&amp;hide_gdpr_banner=1" class="btn btn-sm calendly-popup-trigger">Schedule time</a></p>
                 </div>
 
                 <div class="sidebar-section popular-posts">
@@ -389,6 +387,7 @@
         </div>
     </footer>
 
+    <script src="assets/js/calendly-embed.js" defer></script>
     <script src="assets/js/script.js"></script>
     <script>
         // Function to copy RSS Feed URL to clipboard

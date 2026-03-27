@@ -1,17 +1,20 @@
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Calendly popup functionality
     const bookingButtons = document.querySelectorAll('.btn-book-now');
-    
-    bookingButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+
+    bookingButtons.forEach(function (button) {
+        button.addEventListener('click', function (e) {
             e.preventDefault();
-            const calendlyUrl = this.getAttribute('data-calendly-url');
-            
-            if (calendlyUrl) {
-                Calendly.initPopupWidget({
-                    url: calendlyUrl
-                });
+            var url =
+                button.getAttribute('data-calendly-url') ||
+                (typeof window.CALENDLY_APPOINTMENT_URL !== 'undefined'
+                    ? window.CALENDLY_APPOINTMENT_URL
+                    : null);
+            if (!url) return;
+
+            if (window.CalendlySite && typeof window.CalendlySite.openPopup === 'function') {
+                window.CalendlySite.openPopup(url);
+            } else if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+                window.Calendly.initPopupWidget({ url: url });
             }
         });
     });

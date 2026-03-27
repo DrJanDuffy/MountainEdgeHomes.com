@@ -102,8 +102,8 @@ function initializeFollowupBoss() {
     };
     
 
-    // Find all forms and attach the submit handler
-    const forms = document.querySelectorAll('form');
+    // Only explicit lead forms (Calendly-first site; opt in with data-fub when FUB is wired server-side)
+    const forms = document.querySelectorAll('form[data-fub="true"]');
     forms.forEach(form => {
         form.addEventListener('submit', handleFormSubmit);
     });
