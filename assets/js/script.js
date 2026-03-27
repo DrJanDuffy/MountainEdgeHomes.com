@@ -178,20 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close Resources dropdown when clicking outside (desktop + mobile)
-    document.addEventListener(
-        'pointerdown',
-        function (e) {
-            document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
-                if (dd.contains(e.target)) return;
-                dd.classList.remove('is-open');
-                var btn = dd.querySelector('.nav-dropdown-toggle');
-                if (btn) btn.setAttribute('aria-expanded', 'false');
-            });
-        },
-        true
-    );
-
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
         closeAllNavDropdowns();
@@ -199,10 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     closeAllNavDropdowns();
 
-    // Resources dropdown: click/tap toggles .is-open (desktop + mobile disclosure pattern)
+    // Resources dropdown: click toggles .is-open (desktop + mobile)
     document.querySelectorAll('.nav-dropdown-toggle').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
+            // Prevent document-level outside-close from seeing this click (same-tick close bug)
             e.stopPropagation();
             var li = btn.closest('.nav-dropdown');
             if (!li) return;
@@ -217,6 +204,13 @@ document.addEventListener('DOMContentLoaded', function() {
             li.classList.toggle('is-open', expanded);
             btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         });
+    });
+
+    document.addEventListener('click', function (e) {
+        var t = e.target;
+        if (!t || typeof t.closest !== 'function') return;
+        if (t.closest('.nav-dropdown')) return;
+        closeAllNavDropdowns();
     });
 
     // Testimonials slider functionality

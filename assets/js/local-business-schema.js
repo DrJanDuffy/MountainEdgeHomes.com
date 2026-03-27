@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'https://www.facebook.com/MountainEdgeHomes',
                     'https://www.instagram.com/MountainEdgeHomes',
                     'https://twitter.com/MountainEdgeHomes',
-                    'https://www.linkedin.com/company/mountain-edge-homes',
+                    'https://www.linkedin.com/company/springvalleylasvegas/',
                     'https://www.youtube.com/@DrDuffy',
                     'https://pinterest.com/MountainEdgeHomes',
                 ],
