@@ -112,6 +112,8 @@
   function initBadgeFromBody() {
     if (badgeInitialized) return;
     if (document.body.getAttribute('data-calendly-badge') !== 'true') return;
+    /** One full inline embed is enough; badge + inline reads as duplicate UI */
+    if (document.querySelector('.calendly-inline-widget')) return;
 
     onCalendlyReady(function () {
       if (badgeInitialized) return;
@@ -200,10 +202,15 @@
     initInlineWidgets: initInlineWidgets
   };
 
+  var calendlyBootOnce = false;
+
   function bootCalendlyUi() {
+    if (calendlyBootOnce) return;
+    calendlyBootOnce = true;
+    /** Inline embeds first so badge skip sees DOM nodes */
+    initInlineWidgets();
     initBadgeFromBody();
     wirePopupTriggers();
-    initInlineWidgets();
   }
 
   if (document.readyState === 'loading') {
