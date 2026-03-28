@@ -2489,7 +2489,7 @@ section.contact-form .schedule-embed-panel,
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
 }
 
-.schedule-embed-panel .calendly-inline-host--card .calendly-inline-widget {
+.schedule-embed-panel .calendly-inline-host--card .calendly-inline-mount {
     min-height: 640px !important;
     min-width: 100% !important;
     width: 100% !important;
@@ -2509,7 +2509,7 @@ section.contact-form .schedule-embed-panel,
         border-radius: 10px;
     }
 
-    .schedule-embed-panel .calendly-inline-host--card .calendly-inline-widget {
+    .schedule-embed-panel .calendly-inline-host--card .calendly-inline-mount {
         min-height: 600px !important;
     }
 }

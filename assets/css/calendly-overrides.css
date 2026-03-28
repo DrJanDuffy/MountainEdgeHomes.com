@@ -9,12 +9,13 @@
   min-width: 0;
 }
 
-.calendly-inline-widget {
+/* Mount target for Calendly.initInlineWidget (do not use calendly-inline-widget — widget.js auto-inits that) */
+.calendly-inline-mount {
   min-height: 650px !important;
 }
 
 @media (max-width: 480px) {
-  .calendly-inline-host .calendly-inline-widget {
+  .calendly-inline-host .calendly-inline-mount {
     min-height: 600px !important;
   }
 }

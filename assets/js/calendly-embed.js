@@ -1,6 +1,6 @@
 /**
  * Calendly: load widget.css / widget.js once, shared URL, badge + popup helpers.
- * Inline embeds: add <div class="calendly-inline-widget" data-url="..."> in HTML; Calendly inits after script load.
+ * Inline embeds: use class calendly-inline-mount (NOT calendly-inline-widget — widget.js auto-inits that class and would duplicate our initInlineWidget).
  */
 (function () {
   'use strict';
@@ -113,7 +113,7 @@
     if (badgeInitialized) return;
     if (document.body.getAttribute('data-calendly-badge') !== 'true') return;
     /** One full inline embed is enough; badge + inline reads as duplicate UI */
-    if (document.querySelector('.calendly-inline-widget')) return;
+    if (document.querySelector('.calendly-inline-mount')) return;
 
     onCalendlyReady(function () {
       if (badgeInitialized) return;
@@ -168,7 +168,7 @@
   }
 
   function initInlineWidgets() {
-    var nodes = document.querySelectorAll('.calendly-inline-widget');
+    var nodes = document.querySelectorAll('.calendly-inline-mount');
     if (!nodes.length) return;
 
     onCalendlyReady(function () {
@@ -179,6 +179,7 @@
       for (var i = 0; i < nodes.length; i++) {
         var el = nodes[i];
         if (el.getAttribute('data-calendly-inline-initialized') === 'true') continue;
+        if (el.querySelector('iframe[src*="calendly.com"]')) continue;
         var url = el.getAttribute('data-url');
         if (!url) continue;
         el.setAttribute('data-calendly-inline-initialized', 'true');
