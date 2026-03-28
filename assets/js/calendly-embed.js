@@ -28,25 +28,47 @@
 
   var loadCallbacks = [];
 
+  function calendlyScriptReady() {
+    var C = window.Calendly;
+    if (typeof C === 'undefined') return false;
+    return (
+      typeof C.initPopupWidget === 'function' ||
+      typeof C.initInlineWidget === 'function' ||
+      typeof C.initBadgeWidget === 'function'
+    );
+  }
+
   function onCalendlyReady(fn) {
-    if (typeof window.Calendly !== 'undefined' && window.Calendly.initPopupWidget) {
+    if (calendlyScriptReady()) {
       fn();
       return;
     }
     loadCallbacks.push(fn);
+    /** Popup path: if widget.js stays blocked, still run callback so openCalendlyPopup can fall back */
+    setTimeout(function () {
+      var i = loadCallbacks.indexOf(fn);
+      if (i !== -1) {
+        loadCallbacks.splice(i, 1);
+        try {
+          fn();
+        } catch (e) {
+          console.error('Calendly callback error (timeout)', e);
+        }
+      }
+    }, 8000);
     if (!window.__calendlyLoadStarted) {
       window.__calendlyLoadStarted = true;
       ensureCss();
       if (scriptAlreadyPresent()) {
         var t = setInterval(function () {
-          if (typeof window.Calendly !== 'undefined') {
+          if (calendlyScriptReady()) {
             clearInterval(t);
             flushCallbacks();
           }
         }, 50);
         setTimeout(function () {
           clearInterval(t);
-          flushCallbacks();
+          flushCallbacks(true);
         }, 15000);
         return;
       }
@@ -56,15 +78,29 @@
       s.onload = function () {
         flushCallbacks();
       };
+      s.onerror = function () {
+        flushCallbacks(true);
+      };
       document.head.appendChild(s);
     }
   }
 
-  function flushCallbacks() {
-    while (loadCallbacks.length && typeof window.Calendly !== 'undefined') {
-      var cb = loadCallbacks.shift();
+  function flushCallbacks(force) {
+    if (force) {
+      while (loadCallbacks.length) {
+        var cb = loadCallbacks.shift();
+        try {
+          cb();
+        } catch (e) {
+          console.error('Calendly callback error', e);
+        }
+      }
+      return;
+    }
+    while (loadCallbacks.length && calendlyScriptReady()) {
+      var cbf = loadCallbacks.shift();
       try {
-        cb();
+        cbf();
       } catch (e) {
         console.error('Calendly callback error', e);
       }
@@ -79,31 +115,80 @@
 
     onCalendlyReady(function () {
       if (badgeInitialized) return;
+      if (!window.Calendly || typeof window.Calendly.initBadgeWidget !== 'function') return;
       badgeInitialized = true;
-      window.Calendly.initBadgeWidget({
-        url: DEFAULT_URL,
-        text: 'Schedule time with me',
-        color: '#44734e',
-        textColor: '#ffffff',
-        branding: false,
-      });
+      try {
+        window.Calendly.initBadgeWidget({
+          url: DEFAULT_URL,
+          text: 'Schedule time with me',
+          color: '#44734e',
+          textColor: '#ffffff',
+          branding: false,
+        });
+      } catch (e) {
+        console.warn('Calendly badge unavailable', e);
+      }
     });
   }
 
   function openCalendlyPopup(url) {
     var u = url || DEFAULT_URL;
     onCalendlyReady(function () {
-      window.Calendly.initPopupWidget({ url: u });
+      if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+        try {
+          window.Calendly.initPopupWidget({ url: u });
+          return;
+        } catch (err) {
+          console.error('Calendly initPopupWidget', err);
+        }
+      }
+      window.open(u, '_blank', 'noopener,noreferrer');
     });
+  }
+
+  function resolveCalendlyUrl(el) {
+    var custom = el.getAttribute('data-calendly-url');
+    if (custom) return custom;
+    var href = el.getAttribute('href');
+    if (href && href.indexOf('calendly.com') !== -1) {
+      return href.replace(/&amp;/g, '&');
+    }
+    return DEFAULT_URL;
   }
 
   function wirePopupTriggers() {
     document.querySelectorAll('.calendly-popup-trigger').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
-        var custom = el.getAttribute('data-calendly-url');
-        openCalendlyPopup(custom || DEFAULT_URL);
+        openCalendlyPopup(resolveCalendlyUrl(el));
       });
+    });
+  }
+
+  function initInlineWidgets() {
+    var nodes = document.querySelectorAll('.calendly-inline-widget');
+    if (!nodes.length) return;
+
+    onCalendlyReady(function () {
+      if (typeof window.Calendly.initInlineWidget !== 'function') {
+        console.warn('Calendly: initInlineWidget is not available');
+        return;
+      }
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (el.getAttribute('data-calendly-inline-initialized') === 'true') continue;
+        var url = el.getAttribute('data-url');
+        if (!url) continue;
+        el.setAttribute('data-calendly-inline-initialized', 'true');
+        try {
+          window.Calendly.initInlineWidget({
+            url: url,
+            parentElement: el
+          });
+        } catch (err) {
+          console.error('Calendly inline widget error', err);
+        }
+      }
     });
   }
 
@@ -112,15 +197,18 @@
     openPopup: openCalendlyPopup,
     onReady: onCalendlyReady,
     initBadge: initBadgeFromBody,
+    initInlineWidgets: initInlineWidgets
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      initBadgeFromBody();
-      wirePopupTriggers();
-    });
-  } else {
+  function bootCalendlyUi() {
     initBadgeFromBody();
     wirePopupTriggers();
+    initInlineWidgets();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootCalendlyUi);
+  } else {
+    bootCalendlyUi();
   }
 })();

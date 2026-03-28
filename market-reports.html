@@ -27,6 +27,18 @@
     <style>
       .logo .site-name { font-size: 1.8rem; color: var(--primary-color); margin: 0; font-weight: 700; letter-spacing: -0.5px; text-decoration: none; display: inline-block; }
     </style>
+    <link rel="preconnect" href="https://em.realscout.com" crossorigin>
+    <link rel="dns-prefetch" href="//em.realscout.com">
+    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js" type="module" crossorigin="anonymous"></script>
+    <style>
+      realscout-office-listings {
+        --rs-listing-divider-color: #4a90e2;
+        width: 100%;
+        --rs-font-family: 'Open Sans', sans-serif;
+        --rs-primary-color: #0A2540;
+        --rs-accent-color: #3A8DDE;
+      }
+    </style>
 </head>
 <body data-calendly-badge="true">
 <script type="application/ld+json">
@@ -132,6 +144,24 @@
         <div class="hero-content">
             <h1 class="hero-title">Mountain's Edge market reports &amp; property analysis</h1>
             <p>Context for the 89178 area—pair online tools with guidance from <a href="tel:+17029195002">(702) 919-5002</a>.</p>
+        </div>
+    </section>
+
+    <section class="realscout-listings-section" id="office-listings" aria-label="Featured Mountain's Edge listings">
+        <div class="container">
+            <h2 class="section-title">Featured Mountain's Edge Properties</h2>
+            <p class="section-subtitle">Browse our exclusive selection of luxury homes in Mountain's Edge</p>
+            <div class="realscout-container">
+                <realscout-office-listings 
+                    agent-encoded-id="QWdlbnQtMjI1MDUw" 
+                    sort-order="PRICE_LOW" 
+                    listing-status="For Sale" 
+                    property-types="TC,SFR,MF,LAL" 
+                    price-min="500000"
+                    max-results="6">
+                </realscout-office-listings>
+            </div>
+            <p class="mls-disclaimer">Listing information is provided by participants of the applicable MLS. Information deemed reliable but not guaranteed. Your broker can provide exact listing attribution for any property.</p>
         </div>
     </section>
 

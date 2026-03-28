@@ -19,6 +19,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/property-details.css">
+    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js"></script>
+    <link rel="preconnect" href="https://em.realscout.com" crossorigin>
+    <link rel="dns-prefetch" href="//em.realscout.com">
+    <style>
+      realscout-office-listings {
+        --rs-listing-divider-color: #4a90e2;
+        width: 100%;
+        --rs-font-family: 'Open Sans', sans-serif;
+        --rs-primary-color: #0A2540;
+        --rs-accent-color: #3A8DDE;
+      }
+    </style>
 </head>
 <body>
     <p style="max-width:720px;margin:1rem auto;padding:0 1rem;font-size:0.95rem;">
@@ -28,6 +40,24 @@
         <a href="https://www.google.com/maps/search/?api=1&amp;query=8015+Blue+Diamond+Rd+Las+Vegas+NV+89178" target="_blank" rel="noopener">Directions</a> ·
         <a href="https://g.page/r/Mountains-Edge-Homes/review" target="_blank" rel="noopener">Google reviews</a>
     </p>
+
+    <section class="realscout-listings-section" id="office-listings" aria-label="Featured Mountain's Edge listings">
+        <div class="container">
+            <h2 class="section-title">Featured Mountain's Edge Properties</h2>
+            <p class="section-subtitle">Browse our exclusive selection of luxury homes in Mountain's Edge</p>
+            <div class="realscout-container">
+                <realscout-office-listings 
+                    agent-encoded-id="QWdlbnQtMjI1MDUw" 
+                    sort-order="PRICE_LOW" 
+                    listing-status="For Sale" 
+                    property-types="TC,SFR,MF,LAL" 
+                    price-min="500000"
+                    max-results="6">
+                </realscout-office-listings>
+            </div>
+            <p class="mls-disclaimer">Listing information is provided by participants of the applicable MLS. Information deemed reliable but not guaranteed. Your broker can provide exact listing attribution for any property.</p>
+        </div>
+    </section>
 
     <div id="property-content"></div>
     <div id="similar-properties" class="container" style="margin-top:2rem;"></div>

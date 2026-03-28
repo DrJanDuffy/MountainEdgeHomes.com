@@ -213,6 +213,18 @@
             }
         }
     </style>
+    <link rel="preconnect" href="https://em.realscout.com" crossorigin>
+    <link rel="dns-prefetch" href="//em.realscout.com">
+    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js" type="module" crossorigin="anonymous"></script>
+    <style>
+      realscout-office-listings {
+        --rs-listing-divider-color: #4a90e2;
+        width: 100%;
+        --rs-font-family: 'Open Sans', sans-serif;
+        --rs-primary-color: #0A2540;
+        --rs-accent-color: #3A8DDE;
+      }
+    </style>
 </head>
 <body>
     <div class="portal-demo-banner" role="status" style="background:#fff8e6;border-bottom:1px solid #e6d9a8;padding:12px;text-align:center;font-size:0.95rem;">
@@ -263,6 +275,24 @@
         <div class="container">
             <h1>Mountain's Edge Resident Portal</h1>
             <p>Access community resources, HOA documents, and more</p>
+        </div>
+    </section>
+
+    <section class="realscout-listings-section" id="office-listings" aria-label="Featured Mountain's Edge listings">
+        <div class="container">
+            <h2 class="section-title">Featured Mountain's Edge Properties</h2>
+            <p class="section-subtitle">Browse our exclusive selection of luxury homes in Mountain's Edge</p>
+            <div class="realscout-container">
+                <realscout-office-listings 
+                    agent-encoded-id="QWdlbnQtMjI1MDUw" 
+                    sort-order="PRICE_LOW" 
+                    listing-status="For Sale" 
+                    property-types="TC,SFR,MF,LAL" 
+                    price-min="500000"
+                    max-results="6">
+                </realscout-office-listings>
+            </div>
+            <p class="mls-disclaimer">Listing information is provided by participants of the applicable MLS. Information deemed reliable but not guaranteed. Your broker can provide exact listing attribution for any property.</p>
         </div>
     </section>
 

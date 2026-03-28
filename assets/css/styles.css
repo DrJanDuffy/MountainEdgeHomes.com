@@ -233,6 +233,7 @@ header {
     z-index: 1000;
     padding: 10px 0;
     transition: all 0.3s ease;
+    overflow: visible;
 }
 
 header.scrolled {
@@ -247,6 +248,7 @@ header .header-inner {
     justify-content: space-between;
     gap: 0.5rem 1rem;
     padding: 12px 20px;
+    overflow: visible;
 }
 
 header .container:not(.header-inner) {
@@ -464,7 +466,7 @@ header .nav-dropdown-menu {
         background: #fff;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         border-radius: 8px;
-        z-index: 1002;
+        z-index: 10050;
         display: none;
         flex-direction: column;
     }
@@ -2410,6 +2412,118 @@ footer::before {
 .contact-section {
     padding: 60px 0;
     background-color: #f9f9f9;
+}
+
+.contact-section .contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-top: 2.5rem;
+}
+
+.contact-section .contact-info {
+    flex: 1 1 300px;
+    min-width: 0;
+}
+
+/* Schedule + Calendly card: contact (index, FAQ), booking (schedule), neighborhoods, team */
+.contact-section .contact-form.schedule-embed-panel,
+.booking-section .schedule-embed-panel,
+section.contact-form .schedule-embed-panel,
+.profile-section .contact-form.schedule-embed-panel {
+    flex: 1 1 min(560px, 100%);
+    max-width: min(960px, 100%);
+    padding: 1.75rem 1.25rem 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(165deg, #1a2836 0%, #2a3f54 48%, #243240 100%);
+    border-radius: 16px;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.06),
+        0 20px 50px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.schedule-embed-panel .schedule-embed-heading {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-align: center;
+    color: #fff;
+}
+
+.schedule-embed-panel .schedule-embed-lead {
+    text-align: center;
+    margin: 0 auto 1.35rem;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    max-width: 28rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.schedule-embed-panel .schedule-embed-lead a {
+    color: #8fdcc4;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(143, 220, 196, 0.45);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.schedule-embed-panel .schedule-embed-lead a:hover,
+.schedule-embed-panel .schedule-embed-lead a:focus-visible {
+    color: #c5f0e3;
+    border-bottom-color: rgba(197, 240, 227, 0.85);
+    outline: none;
+}
+
+.schedule-embed-panel .calendly-inline-host--card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 920px;
+    margin: 0 auto;
+    min-height: 640px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+}
+
+.schedule-embed-panel .calendly-inline-host--card .calendly-inline-widget {
+    min-height: 640px !important;
+    min-width: 100% !important;
+    width: 100% !important;
+}
+
+@media (max-width: 576px) {
+    .contact-section .contact-form.schedule-embed-panel,
+    .booking-section .schedule-embed-panel,
+    section.contact-form .schedule-embed-panel,
+    .profile-section .contact-form.schedule-embed-panel {
+        padding: 1.35rem 0.85rem 1.5rem;
+        border-radius: 12px;
+    }
+
+    .schedule-embed-panel .calendly-inline-host--card {
+        min-height: 600px;
+        border-radius: 10px;
+    }
+
+    .schedule-embed-panel .calendly-inline-host--card .calendly-inline-widget {
+        min-height: 600px !important;
+    }
+}
+
+/* MLS disclaimer under RealScout office listings */
+.mls-disclaimer {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 1rem;
+    line-height: 1.55;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 /* Neighborhoods Section */

@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('click', function (e) {
         var t = e.target;
+        if (t && t.nodeType === 3) t = t.parentElement;
         if (!t || typeof t.closest !== 'function') return;
         if (t.closest('.nav-dropdown')) return;
         closeAllNavDropdowns();

@@ -15,8 +15,16 @@
     <link rel="stylesheet" href="assets/css/calendly-overrides.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js"></script>
+    <link rel="preconnect" href="https://em.realscout.com" crossorigin>
+    <link rel="dns-prefetch" href="//em.realscout.com">
     <style>
-      realscout-office-listings { width: 100%; --rs-primary-color: #0A2540; --rs-accent-color: #3A8DDE; }
+      realscout-office-listings {
+        --rs-listing-divider-color: #4a90e2;
+        width: 100%;
+        --rs-font-family: 'Open Sans', sans-serif;
+        --rs-primary-color: #0A2540;
+        --rs-accent-color: #3A8DDE;
+      }
       .buyers-main-section { padding: 60px 0; background: #f9f9f9; }
       .buyers-intro { max-width: 800px; margin: 0 auto 2rem; text-align: center; }
       .buyers-intro h2 { color: #2c3e50; margin-bottom: 1rem; }
@@ -139,6 +147,24 @@
         </div>
     </section>
 
+    <section class="realscout-listings-section" id="office-listings" aria-label="Featured Mountain's Edge listings">
+        <div class="container">
+            <h2 class="section-title">Featured Mountain's Edge Properties</h2>
+            <p class="section-subtitle">Browse our exclusive selection of luxury homes in Mountain's Edge</p>
+            <div class="realscout-container">
+                <realscout-office-listings 
+                    agent-encoded-id="QWdlbnQtMjI1MDUw" 
+                    sort-order="PRICE_LOW" 
+                    listing-status="For Sale" 
+                    property-types="TC,SFR,MF,LAL" 
+                    price-min="500000"
+                    max-results="6">
+                </realscout-office-listings>
+            </div>
+            <p class="mls-disclaimer">Listing information is provided by participants of the applicable MLS. Information deemed reliable but not guaranteed. Your broker can provide exact listing attribution for any property.</p>
+        </div>
+    </section>
+
     <section class="buyers-main-section">
         <div class="container">
             <div class="buyers-intro">
@@ -182,18 +208,6 @@
                 Listing information is provided by participants of the applicable MLS. Information deemed reliable but not guaranteed.
                 Your broker can provide the exact listing attribution for any property you are considering.
             </p>
-
-            <h2 class="section-title" style="text-align:center;margin-top:2.5rem;">Featured homes</h2>
-            <div class="realscout-container">
-                <realscout-office-listings
-                    agent-encoded-id="QWdlbnQtMjI1MDUw"
-                    sort-order="PRICE_LOW"
-                    listing-status="For Sale"
-                    property-types="TC,SFR,MF,LAL"
-                    price-min="500000"
-                    max-results="6">
-                </realscout-office-listings>
-            </div>
 
             <div style="text-align:center;margin:2rem 0;">
                 <a href="https://drjanduffy.realscout.com/onboarding" class="btn btn-lg">Open full search experience</a>

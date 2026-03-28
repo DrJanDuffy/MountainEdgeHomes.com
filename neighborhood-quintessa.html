@@ -23,6 +23,17 @@
       .logo .site-name { font-size: 1.8rem; color: var(--primary-color); margin: 0; font-weight: 700; letter-spacing: -0.5px; text-decoration: none; display: inline-block; }
     </style>
     <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js"></script>
+    <link rel="preconnect" href="https://em.realscout.com" crossorigin>
+    <link rel="dns-prefetch" href="//em.realscout.com">
+    <style>
+      realscout-office-listings {
+        --rs-listing-divider-color: #4a90e2;
+        width: 100%;
+        --rs-font-family: 'Open Sans', sans-serif;
+        --rs-primary-color: #0A2540;
+        --rs-accent-color: #3A8DDE;
+      }
+    </style>
 </head>
 <body>
     
@@ -105,9 +116,7 @@
                 <realscout-simple-search agent-encoded-id="QWdlbnQtMjI1MDUw"></realscout-simple-search>
                 <realscout-advanced-search agent-encoded-id="QWdlbnQtMjI1MDUw"></realscout-advanced-search>
             </div>
-            <div class="realscout-container">
-                <realscout-office-listings agent-encoded-id="QWdlbnQtMjI1MDUw" sort-order="PRICE_HIGH" listing-status="For Sale" property-types="TC,SFR,MF" price-min="700000" max-results="6" custom-search="Quintessa Mountain Edge"></realscout-office-listings>
-            </div>
+            <p class="mls-disclaimer">Listing information is provided by participants of the applicable MLS. Information deemed reliable but not guaranteed. Your broker can provide exact listing attribution for any property.</p>
         </div>
     </section>
 

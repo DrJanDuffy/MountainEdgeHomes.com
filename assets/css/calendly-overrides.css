@@ -5,6 +5,10 @@
   min-height: 650px;
 }
 
+.calendly-inline-host--card {
+  min-width: 0;
+}
+
 .calendly-inline-widget {
   min-height: 650px !important;
 }
