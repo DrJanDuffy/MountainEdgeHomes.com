@@ -5,13 +5,29 @@
   min-height: 650px;
 }
 
+/* Do not use min-width:0 here — flex items shrink the iframe host and break Calendly layout.
+   Use full width + box sizing; Calendly’s UI needs ~320px minimum width on small screens. */
 .calendly-inline-host--card {
-  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: min(100%, 320px);
+  box-sizing: border-box;
 }
 
 /* Mount target for Calendly.initInlineWidget (do not use calendly-inline-widget — widget.js auto-inits that) */
 .calendly-inline-mount {
   min-height: 650px !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Calendly injects the iframe — ensure it fills the host (inline styles sometimes fight flex parents) */
+.calendly-inline-mount iframe {
+  width: 100% !important;
+  min-width: 100% !important;
+  min-height: 600px !important;
+  border: 0 !important;
+  display: block;
 }
 
 @media (max-width: 480px) {

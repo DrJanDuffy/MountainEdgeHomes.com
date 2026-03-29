@@ -339,6 +339,7 @@ div[itemscope] {
     height: 100%;
     border-radius: 8px;
     border: none;
+}
 
 /* Voice Search Optimization Styles */
 [data-voice-target="question"] {
