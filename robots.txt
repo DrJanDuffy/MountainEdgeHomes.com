@@ -1,5 +1,6 @@
 # robots.txt for https://mountainedgehomes.com/
-# Google Search Console: submit only sitemap URLs that return HTTP 200 (see sitemap.xml).
+# Google Search Console: add URL-prefix property https://mountainedgehomes.com/ and submit
+# https://mountainedgehomes.com/sitemap.xml (see GSC-SETUP.md). Do not block /assets/.
 
 # Allow all user agents
 User-agent: *
