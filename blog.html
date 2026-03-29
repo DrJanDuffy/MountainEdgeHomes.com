@@ -11,21 +11,12 @@
     <link rel="stylesheet" href="assets/css/blog.css">
     <link rel="stylesheet" href="assets/css/global-map.css">
     <link rel="stylesheet" href="assets/css/calendly-overrides.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js"></script>
     <link rel="preconnect" href="https://em.realscout.com" crossorigin>
     <link rel="dns-prefetch" href="//em.realscout.com">
-    <style>
-      realscout-office-listings {
-        --rs-listing-divider-color: #4a90e2;
-        width: 100%;
-        --rs-font-family: 'Open Sans', sans-serif;
-        --rs-primary-color: #0A2540;
-        --rs-accent-color: #3A8DDE;
-      }
-    </style>
 
 <!-- Structured Data for SEO -->
 <script type="application/ld+json">
@@ -51,6 +42,7 @@
 }
 </script>
 
+    <script src="assets/js/realscout-loader.js" defer></script>
 </head>
 <body data-calendly-badge="true">
     <!-- Header -->
@@ -72,6 +64,7 @@
                     <li class="nav-dropdown">
                         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="resources-submenu" aria-haspopup="true" id="resources-btn">Resources</button>
                         <ul class="nav-dropdown-menu" id="resources-submenu" role="menu" aria-labelledby="resources-btn">
+                            <li role="none"><a href="https://calendly.com/drjanduffy/appointment?hide_event_type_details=1&amp;hide_gdpr_banner=1" class="calendly-popup-trigger" role="menuitem">Book with Calendly</a></li>
                             <li role="none"><a href="blog.html" role="menuitem" class="active">Blog</a></li>
                             <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
                             <li role="none"><a href="testimonials.html" role="menuitem">Testimonials</a></li>
@@ -430,6 +423,8 @@
     </footer>
 
 
+    <script src="assets/js/site-contact.js" defer></script>
+    <script src="assets/js/local-business-schema.js" defer></script>
     <script src="assets/js/calendly-embed.js" defer></script>
     <script src="assets/js/script.js"></script>
     <script>

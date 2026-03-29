@@ -49,8 +49,8 @@ function initLazyLoading() {
                 img.style.transition = 'filter 0.5s ease';
             }
 
-            // Verify alt text exists
-            if (!img.alt || img.alt.trim() === '') {
+            // Verify alt text exists (decorative / presentation may use alt="")
+            if ((!img.alt || img.alt.trim() === '') && img.getAttribute('role') !== 'presentation') {
                 console.warn('Image missing alt text:', img.dataset.src || img.src);
                 // Set default alt if missing
                 if (img.dataset.defaultAlt) {
@@ -229,28 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initLazyLoading();
 });
 
-// Function to preload critical images
-// Preload critical images as early as possible
-(function() {
-    // Define critical images to preload immediately
-    const CRITICAL_IMAGES = [
-        'assets/images/hero-mountains-edge-1600w.jpg'
-    ];
-    
-    // Preload critical hero image during parse time
-    CRITICAL_IMAGES.forEach(imageSrc => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = imageSrc;
-        link.fetchPriority = 'high';
-        document.head.appendChild(link);
-        
-        // Also create an image object to start loading
-        const img = new Image();
-        img.src = imageSrc;
-    });
-})();
+// Hero preloads: use <link rel="preload"> in index.html (responsive media) to avoid duplicate/wrong-width fetches.
 
 function preloadCriticalImages() {
     // Preload critical images

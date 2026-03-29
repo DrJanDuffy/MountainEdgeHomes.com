@@ -1,5 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelector('script[type="application/ld+json"][data-me-org-schema="1"]')) {
+        return;
+    }
     var c = window.MountainEdgeSiteContact || {};
     var origin = c.siteOrigin || 'https://mountainedgehomes.com';
     var mapsUrl =
@@ -141,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var script = document.createElement('script');
     script.type = 'application/ld+json';
+    script.setAttribute('data-me-org-schema', '1');
     script.text = JSON.stringify(organizationGraph);
     document.head.appendChild(script);
 });

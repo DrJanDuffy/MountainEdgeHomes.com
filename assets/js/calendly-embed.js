@@ -133,15 +133,41 @@
     });
   }
 
+  function normalizeCalendlyUrl(u) {
+    if (!u || typeof u !== 'string') return DEFAULT_URL;
+    return u.replace(/&amp;/g, '&').trim();
+  }
+
   function openCalendlyPopup(url) {
-    var u = url || DEFAULT_URL;
+    var u = normalizeCalendlyUrl(url || DEFAULT_URL);
     onCalendlyReady(function () {
-      if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+      var C = window.Calendly;
+      if (!C) {
+        window.open(u, '_blank', 'noopener,noreferrer');
+        return;
+      }
+      /** Close any existing popup so a second click re-opens cleanly */
+      if (typeof C.closePopupWidget === 'function') {
         try {
-          window.Calendly.initPopupWidget({ url: u });
+          C.closePopupWidget();
+        } catch (e) {
+          /* ignore */
+        }
+      }
+      if (typeof C.initPopupWidget === 'function') {
+        try {
+          C.initPopupWidget({ url: u });
           return;
         } catch (err) {
           console.error('Calendly initPopupWidget', err);
+        }
+      }
+      if (typeof C.showPopupWidget === 'function') {
+        try {
+          C.showPopupWidget({ url: u });
+          return;
+        } catch (err) {
+          console.warn('Calendly showPopupWidget', err);
         }
       }
       window.open(u, '_blank', 'noopener,noreferrer');
@@ -150,21 +176,33 @@
 
   function resolveCalendlyUrl(el) {
     var custom = el.getAttribute('data-calendly-url');
-    if (custom) return custom;
+    if (custom) return normalizeCalendlyUrl(custom);
     var href = el.getAttribute('href');
     if (href && href.indexOf('calendly.com') !== -1) {
-      return href.replace(/&amp;/g, '&');
+      return normalizeCalendlyUrl(href);
     }
     return DEFAULT_URL;
   }
 
   function wirePopupTriggers() {
-    document.querySelectorAll('.calendly-popup-trigger').forEach(function (el) {
-      el.addEventListener('click', function (e) {
+    if (window.__calendlyPopupDelegationWired) return;
+    window.__calendlyPopupDelegationWired = true;
+    document.body.addEventListener(
+      'click',
+      function (e) {
+        if (e.defaultPrevented) return;
+        var t = e.target;
+        if (t && t.nodeType === 3 && t.parentElement) t = t.parentElement;
+        if (!t || typeof t.closest !== 'function') return;
+        var trigger = t.closest('.calendly-popup-trigger');
+        if (!trigger) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (typeof e.button === 'number' && e.button !== 0) return;
         e.preventDefault();
-        openCalendlyPopup(resolveCalendlyUrl(el));
-      });
-    });
+        openCalendlyPopup(resolveCalendlyUrl(trigger));
+      },
+      false
+    );
   }
 
   function initInlineWidgets() {
@@ -204,14 +242,92 @@
   };
 
   var calendlyBootOnce = false;
+  var inlineHeavyRan = false;
+  var badgeHeavyScheduled = false;
+
+  /**
+   * PSI / Core Web Vitals: do not load widget.js until needed.
+   * - Popups: script loads on first .calendly-popup-trigger click (via onCalendlyReady).
+   * - Inline: load when embed nears viewport (or fallback timeout).
+   * - Badge: load after idle / first interaction (not on critical path).
+   */
+  function runInlineHeavyOnce() {
+    if (inlineHeavyRan) return;
+    inlineHeavyRan = true;
+    initInlineWidgets();
+  }
+
+  function scheduleInlineWhenVisible() {
+    var nodes = document.querySelectorAll('.calendly-inline-mount');
+    if (!nodes.length) return;
+
+    function fallback() {
+      runInlineHeavyOnce();
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              io.disconnect();
+              runInlineHeavyOnce();
+            }
+          });
+        },
+        { rootMargin: '280px 0px 400px 0px', threshold: 0.01 }
+      );
+      for (var i = 0; i < nodes.length; i++) {
+        io.observe(nodes[i]);
+      }
+      window.setTimeout(function () {
+        try {
+          io.disconnect();
+        } catch (e) {
+          /* ignore */
+        }
+        fallback();
+      }, 12000);
+    } else {
+      window.setTimeout(fallback, 600);
+    }
+  }
+
+  function scheduleBadgeWhenIdleOrInteraction() {
+    if (badgeHeavyScheduled) return;
+    if (document.body.getAttribute('data-calendly-badge') !== 'true') return;
+    if (document.querySelector('.calendly-inline-mount')) return;
+    badgeHeavyScheduled = true;
+
+    var done = false;
+    function go() {
+      if (done) return;
+      done = true;
+      document.removeEventListener('pointerdown', early, true);
+      document.removeEventListener('keydown', early, true);
+      initBadgeFromBody();
+    }
+
+    function early() {
+      go();
+    }
+
+    document.addEventListener('pointerdown', early, true);
+    document.addEventListener('keydown', early, true);
+
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(go, { timeout: 5000 });
+    } else {
+      window.setTimeout(go, 5000);
+    }
+  }
 
   function bootCalendlyUi() {
     if (calendlyBootOnce) return;
     calendlyBootOnce = true;
-    /** Inline embeds first so badge skip sees DOM nodes */
-    initInlineWidgets();
-    initBadgeFromBody();
     wirePopupTriggers();
+    scheduleInlineWhenVisible();
+    scheduleBadgeWhenIdleOrInteraction();
   }
 
   if (document.readyState === 'loading') {

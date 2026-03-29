@@ -1,10 +1,4 @@
-// Simple performance tracking
-const pageLoadStart = Date.now();
-
-// Basic preconnect to important domains
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM content loaded in ' + (Date.now() - pageLoadStart) + 'ms');
-
     // Simple lazy loading for images
     const lazyImages = document.querySelectorAll('img[data-src]');
     if ('IntersectionObserver' in window) {
@@ -19,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         img.classList.add('loaded');
                         imageObserver.unobserve(img);
-                        console.log('Image loaded:', img.alt);
                     }
                 }
             });
@@ -45,25 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('img').forEach(img => {
         img.addEventListener('error', function() {
             if (!this.src.includes('fallback') && !this.classList.contains('error-handled')) {
-                console.error('Failed to load image:', this.src);
                 this.src = 'assets/images/placeholders/fallback.svg';
                 this.classList.add('error-handled');
             }
         });
     });
-
-    console.log("Window loaded");
 });
-
-// Set viewport height fix for mobile browsers
-function setVhProperty() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-// Set initially and on resize
-setVhProperty();
-window.addEventListener('resize', setVhProperty);
 
 // Set viewport height fix for mobile browsers
 function setVhProperty() {

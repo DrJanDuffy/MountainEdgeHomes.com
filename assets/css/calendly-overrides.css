@@ -24,3 +24,12 @@
 .calendly-badge-widget {
   z-index: 9998;
 }
+
+/* Popup must sit above sticky header, skip link focus ring, and mobile nav (site uses z-index ~10k+) */
+.calendly-overlay {
+  z-index: 2147483000 !important;
+}
+
+.calendly-popup {
+  z-index: 2147483001 !important;
+}

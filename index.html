@@ -40,10 +40,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#44734e">
 
-    <!-- Preconnect to Important Domains -->
+    <!-- Preconnect to Important Domains (fonts preconnect removed — site uses system UI stack) -->
     <link rel="preconnect" href="https://www.google.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
     <!-- Canonical URL -->
@@ -62,6 +60,10 @@
     <link rel="preconnect" href="https://maps.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
     <link rel="preconnect" href="https://em.realscout.com" crossorigin>
+
+    <!-- LCP: preload hero image (match picture sources) -->
+    <link rel="preload" as="image" href="assets/images/hero-mountains-edge-800w.jpg" fetchpriority="high" media="(max-width: 799px)">
+    <link rel="preload" as="image" href="assets/images/hero-mountains-edge-1600w.jpg" fetchpriority="high" media="(min-width: 800px)">
 
     <!-- Simple anti-flicker style - reliable approach -->
     <style>
@@ -82,14 +84,6 @@
             100% { opacity: 1; }
         }
 
-        /* Immediately load the hero image */
-        .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('assets/images/hero-background.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-        }
-
         /* Prevent image loading causing layout shifts */
         img {
             min-height: 1px;
@@ -107,19 +101,9 @@
     <link rel="stylesheet" href="assets/css/form-enhancements.css">
     <link rel="stylesheet" href="assets/css/calendly-overrides.css">
     <link rel="stylesheet" href="assets/css/seo-enhancements.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
 
-    <!-- External scripts -->
-    <script src="https://em.realscout.com/widgets/realscout-web-components.umd.js" type="module" crossorigin="anonymous"></script>
-    <style>
-      realscout-office-listings {
-        --rs-listing-divider-color: #4a90e2;
-        width: 100%;
-        --rs-font-family: 'Open Sans', sans-serif;
-        --rs-primary-color: #0A2540;
-        --rs-accent-color: #3A8DDE;
-      }
-    </style>
 </head>
 <body data-calendly-badge="true">
     <a href="#main-content" class="skip-link skip-to-images">Skip to main content</a>
@@ -161,6 +145,7 @@
                     <li class="nav-dropdown">
                         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="resources-submenu" aria-haspopup="true" id="resources-btn">Resources</button>
                         <ul class="nav-dropdown-menu" id="resources-submenu" role="menu" aria-labelledby="resources-btn">
+                            <li role="none"><a href="https://calendly.com/drjanduffy/appointment?hide_event_type_details=1&amp;hide_gdpr_banner=1" class="calendly-popup-trigger" role="menuitem">Book with Calendly</a></li>
                             <li role="none"><a href="blog.html" role="menuitem">Blog</a></li>
                             <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
                             <li role="none"><a href="testimonials.html" role="menuitem">Testimonials</a></li>
@@ -188,13 +173,18 @@
             <source srcset="assets/images/hero-mountains-edge-2400w.jpg" media="(min-width: 1600px)">
             <source srcset="assets/images/hero-mountains-edge-1600w.jpg" media="(min-width: 800px)">
             <source srcset="assets/images/hero-mountains-edge-800w.jpg" media="(max-width: 799px)">
-            <img 
-                src="assets/images/hero-mountains-edge-placeholder.jpg" 
-                data-src="assets/images/hero-mountains-edge-1600w.jpg" 
-                alt="Panoramic view of Mountain's Edge community in Las Vegas with mountain backdrop" 
-                class="hero-background optimized-image" 
-                loading="eager" 
-                aria-hidden="true">
+            <img
+                src="assets/images/hero-mountains-edge-800w.jpg"
+                srcset="assets/images/hero-mountains-edge-800w.jpg 800w, assets/images/hero-mountains-edge-1600w.jpg 1600w, assets/images/hero-mountains-edge-2400w.jpg 2400w"
+                sizes="100vw"
+                width="1600"
+                height="900"
+                alt=""
+                role="presentation"
+                class="hero-background optimized-image"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async">
         </picture>
         <div class="hero-content">
             <h1 class="hero-title">Buy your next home in Mountain's Edge, Las Vegas 89178</h1>
@@ -507,6 +497,7 @@
 
 
     <!-- Load critical scripts first -->
+    <script src="assets/js/realscout-loader.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/image-optimization.js"></script>
 
